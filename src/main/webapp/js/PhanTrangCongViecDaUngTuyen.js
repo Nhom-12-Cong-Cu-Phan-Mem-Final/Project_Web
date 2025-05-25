@@ -71,16 +71,24 @@ function loadHoSos(page) {
 
             // Cập nhật phân trang
             let totalPages = response.totalPages; 
-            let paginationHtml = '';
-            for (let i = 1; i <= totalPages; i++) {
-                paginationHtml += `<a href="javascript:void(0);" onclick="loadHoSos(${i})" class="btn btn-primary ${i == response.currentPage ? 'active' : ''}">${i}</a>`;
-            }
-
-            // Cập nhật phân trang vào giao diện
-            $('#pagination').fadeOut(300, function() {
-                $(this).html(paginationHtml).fadeIn(500);
-            });
-        },
+			let paginationHtml = '<ul class="pagination justify-content-center">';
+			           for (let i = 1; i <= totalPages; i++) {
+						paginationHtml += `
+						        <li class="page-item ${i == response.currentPage ? 'active' : ''}">
+						            <a href="#" class="page-link" data-page="${i}">${i}</a>
+						        </li>
+						    `;
+			           }
+					paginationHtml += '</ul>';
+			           $('#pagination').fadeOut(300, function() {
+			               $(this).html(paginationHtml).fadeIn(500);
+						$('.page-link').off('click').on('click', function (e) {
+						        e.preventDefault();
+						        const page = $(this).data('page');
+						        loadHoSos(page);
+						    });
+			           });
+			       },
         error: function(xhr, status, error) {
             console.error("Error details:", status, error);  // In ra chi tiết lỗi
             alert('Lỗi tải dữ liệu nè!');

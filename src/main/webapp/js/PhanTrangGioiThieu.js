@@ -74,12 +74,22 @@ function loadJobs(page) {
 
             // Xử lý phân trang
             let totalPages = response.totalPages;
-            let paginationHtml = '';
+            let paginationHtml = '<ul class="pagination justify-content-center">';
             for (let i = 1; i <= totalPages; i++) {
-                paginationHtml += `<a href="javascript:void(0);" onclick="loadJobs(${i})" class="btn btn-primary ${i == response.currentPage ? 'active' : ''}">${i}</a>`;
+				paginationHtml += `
+				        <li class="page-item ${i == response.currentPage ? 'active' : ''}">
+				            <a href="#" class="page-link" data-page="${i}">${i}</a>
+				        </li>
+				    `;
             }
+			paginationHtml += '</ul>';
             $('#pagination').fadeOut(300, function() {
                 $(this).html(paginationHtml).fadeIn(500);
+				$('.page-link').off('click').on('click', function (e) {
+				        e.preventDefault();
+				        const page = $(this).data('page');
+				        loadJobs(page);
+				    });
             });
         },
         error: function(xhr, status, error) {
