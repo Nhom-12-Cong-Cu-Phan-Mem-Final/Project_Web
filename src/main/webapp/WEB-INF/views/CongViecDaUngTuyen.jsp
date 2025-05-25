@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +35,7 @@
 	integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
 	crossorigin="anonymous"></script>
 <link href="assets/css/style.css" rel="stylesheet">
-<style>
+<style nonce="<%= nonce %>">
 /* Chỉ chừa border dưới cho bảng */
 table {
 	border-collapse: collapse;
@@ -126,7 +129,6 @@ thead th {
 	<jsp:include page="modals/ChiTietCongViecModal.jsp" />
 	<jsp:include page="modals/ViewCVModal.jsp" />
 
-	<script src="js/PhanTrangQuanLyTin.js"></script>
 	<script src="js/PhanTrangCongViecDaUngTuyen.js"></script>
 	<script src="js/CV.js"></script>
 </body>
