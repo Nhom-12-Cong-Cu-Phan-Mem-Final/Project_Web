@@ -49,14 +49,16 @@ function loadHoSos(page) {
                         <td class="text-muted">${thoiGianGui}</td>
                         <td class="text-muted">${hoSo.trangThai}</td>
 						<td>
-				            <button type="button" class="btn btn-outline-coral btn-sm" onclick="showJobDetail(${hoSo.idCongViec})">Chi tiết</button>
-				        </td>
+							<button type="button" class="btn btn-outline-coral btn-sm btn-chi-tiet" data-idcongviec="${hoSo.idCongViec}">
+							    Chi tiết
+							</button>
+						</td>
                         <td>
 							<button type="button" 
-								class="btn btn-primary" 
+								class="btn btn-primary btn-xem-cv" 
+								data-idcv="${hoSo.idCV}"
 								data-bs-toggle="modal" 
-								data-bs-target="#cvModal" 
-								onclick="loadCVContent(${hoSo.idCV})">
+								data-bs-target="#cvModal">
 							  Xem CV
 							</button>
                         </td>
@@ -109,3 +111,70 @@ $(document).ready(function() {
 
     loadHoSos(1);  // Tải dữ liệu cho trang đầu tiên
 });
+
+function showJobDetail(idCongViec) {
+    $.ajax({
+        url: 'ChiTietCongViecServlet',  // Đường dẫn servlet
+        method: 'GET',
+        data: { id: idCongViec, ajax: true },  // Gửi ID công việc
+        success: function(response) {
+            if (!response) {
+                alert('Không thể tải dữ liệu chi tiết!');
+                return;
+            }
+
+            try {
+                // Hiển thị dữ liệu vào modal với kiểm tra null/undefined
+                $('#job-name').text(response.congViec.ten || 'Không có tên công việc');
+                $('#job-location').text(response.congViec.diaDiem || 'Không có địa điểm');
+                $('#job-salary').text(
+                    response.congViec.luong !== undefined && response.congViec.luong !== null
+                        ? response.congViec.luong.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+                        : 'Không có lương'
+                );
+                $('#job-experience').text(
+                    response.congViec.namKinhNghiem !== undefined && response.congViec.namKinhNghiem !== null
+                        ? response.congViec.namKinhNghiem + ' năm'
+                        : 'Không yêu cầu kinh nghiệm'
+                );
+                $('#job-field').text(response.congViec.linhVuc || 'Không có lĩnh vực');
+                $('#job-post-time').text(
+                    response.congViec.thoiGianDang
+                        ? new Date(response.congViec.thoiGianDang).toLocaleDateString('vi-VN')
+                        : 'Không rõ'
+                );
+                $('#job-expiry-time').text(
+                    response.congViec.thoiGianHetHan
+                        ? new Date(response.congViec.thoiGianHetHan).toLocaleDateString('vi-VN')
+                        : 'Không rõ'
+                );
+                $('#job-description').text(response.congViec.moTa || 'Không có mô tả');
+                $('#job-requirements').text(response.congViec.yeuCau || 'Không có yêu cầu');
+                $('#job-benefits').text(response.congViec.quyenLoi || 'Không có quyền lợi');
+                $('#job-views').text(response.congViec.luotXem !== undefined ? response.congViec.luotXem : '0');
+                $('#job-applications').text(response.congViec.luotNop !== undefined ? response.congViec.luotNop : '0');
+
+                // Mở modal
+                $('#jobDetailModal').modal('show');
+            } catch (error) {
+                console.error("Lỗi khi xử lý dữ liệu: ", error);
+                alert('Dữ liệu trả về không hợp lệ!');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error details:", status, error);
+            alert('Lỗi tải chi tiết công việc!');
+        }
+    });
+}
+
+$(document).on('click', '.btn-chi-tiet', function () {
+    const idCongViec = $(this).data('idcongviec');
+    showJobDetail(idCongViec);
+});
+$(document).on('click', '.btn-xem-cv', function () {
+	const idCV = $(this).data('idcv');
+	loadCVContent(idCV);
+});
+
+

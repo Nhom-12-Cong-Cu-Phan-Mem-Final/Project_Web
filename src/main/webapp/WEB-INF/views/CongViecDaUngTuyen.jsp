@@ -129,7 +129,6 @@ thead th {
 	<jsp:include page="modals/ChiTietCongViecModal.jsp" />
 	<jsp:include page="modals/ViewCVModal.jsp" />
 
-	<script src="js/PhanTrangQuanLyTin.js"></script>
 	<script src="js/PhanTrangCongViecDaUngTuyen.js"></script>
 	<script src="js/CV.js"></script>
 </body>
