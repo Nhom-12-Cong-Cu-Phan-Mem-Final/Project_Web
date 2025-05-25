@@ -53,13 +53,45 @@ public class LoginServlet extends HttpServlet {
 		tk.setPassword(request.getParameter("password"));
 		
 		String safeUserName = LogSanitizer.sanitizeForLog(tk.getUsername());
-		logger.info("Attempting login for user: {}", safeUserName);
+
 		
+		HttpSession session = request.getSession(true);
+
+		// Lấy số lần đăng nhập sai từ session
+		Integer failedAttempts = (Integer) session.getAttribute("failedAttempts");
+		if (failedAttempts == null) {
+			failedAttempts = 0;
+		}
+		Long lastFailedTime = (Long) session.getAttribute("lastFailedTime");
+		if (failedAttempts >= 5) {
+		    if (lastFailedTime != null) {
+		        long currentTime = System.currentTimeMillis();
+		        long diffMinutes = (currentTime - lastFailedTime) / (60 * 1000); // đổi ms thành phút
+
+		        if (diffMinutes < 5) {
+		            logger.warn("User {} still blocked. Wait {} more minutes.", safeUserName, (5 - diffMinutes));
+		            response.sendRedirect("Login.jsp?error=blocked&wait=" + (5 - diffMinutes));
+		            return;
+		        } else {
+		            // Đủ 5 phút rồi thì reset lại
+		            session.setAttribute("failedAttempts", 0);
+		            session.setAttribute("lastFailedTime", null);
+		        }
+		    }
+		}
+	    // Nếu quá 5 lần thì chặn
+	    if (failedAttempts >= 5) {
+	        logger.warn("User {} blocked due to too many failed login attempts.", safeUserName);
+	        response.sendRedirect("Login.jsp?error=blocked");
+	        return;
+	    }
+	    
+		logger.info("Attempting login for user: {}", safeUserName);
 		boolean isAuthenticated = TaiKhoanDAO.AuthenticationAccount(tk);
 		if (isAuthenticated) {
 			int id = TaiKhoanDAO.getID("username", tk.getUsername());
-			HttpSession session = request.getSession(true);
-			
+			 // Reset lại số lần sai
+	        session.setAttribute("failedAttempts", 0);
 			TaiKhoan taiKhoan = TaiKhoanDAO.getTaiKhoanById(id);
 			session.setAttribute("account", taiKhoan);
 			
@@ -94,7 +126,11 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		else {
-			 logger.warn("Authentication failed for user: {}", safeUserName);
+			failedAttempts++;
+			session.setAttribute("failedAttempts", failedAttempts);
+			session.setAttribute("lastFailedTime", System.currentTimeMillis());
+	        session.setAttribute("failedAttempts", failedAttempts);
+			logger.warn("Authentication failed for user: {}", safeUserName);
 		}
 		response.sendRedirect(destination);
 	}
