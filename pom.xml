@@ -235,21 +235,42 @@
 	</dependencies>
 	<!-- Build Plugins -->
 	<build>
-		<plugins>
-			<!-- Maven Compiler Plugin -->
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<release>11</release>
-				</configuration>
-			</plugin>
+    <plugins>
+        <!-- Maven Compiler Plugin -->
+        <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <release>17</release>
+            </configuration>
+        </plugin>
 
-			<!-- Maven WAR Plugin -->
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.3</version>
-			</plugin>
-		</plugins>
-	</build>
+        <!-- Maven WAR Plugin -->
+        <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.2.3</version>
+        </plugin>
+
+        <!-- OWASP Dependency Check Plugin -->
+        <plugin>
+		    <groupId>org.owasp</groupId>
+		    <artifactId>dependency-check-maven</artifactId>
+		    <version>8.4.0</version>
+		    <executions>
+		        <execution>
+		            <goals>
+		                <goal>check</goal>
+		            </goals>
+		        </execution>
+		    </executions>
+		    <configuration>
+		        <formats>
+		            <format>XML</format>
+		        </formats>
+		    </configuration>
+		</plugin>
+
+    </plugins>
+</build>
+
 </project>
