@@ -11,7 +11,12 @@
 	
 	<session-config>
 		<tracking-mode>COOKIE</tracking-mode>
+
 	</session-config>
+
+    	
+
+	
 	
 	<servlet>
 		<description></description>
@@ -387,6 +392,16 @@
 		<filter-name>ContentSecurityPolicyFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	<filter>
+    <filter-name>SessionSecurityFilter</filter-name>
+    <filter-class>filters.SessionSecurityFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+	    <filter-name>SessionSecurityFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<error-page>
 		<error-code>500</error-code>
 		<location>/error.jsp</location>
@@ -402,4 +417,8 @@
 	        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
 	    </user-data-constraint>
 	</security-constraint> 
+	<listener>
+    	<listener-class>utils.SessionConfigListener</listener-class>
+	</listener>
+	
 </web-app>
