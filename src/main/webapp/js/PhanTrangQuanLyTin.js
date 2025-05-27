@@ -50,8 +50,8 @@ function loadJobs(page) {
                         <td class="text-muted">${congViec.luotNop}</td>
                         <td class="text-muted">${congViec.luotXem}</td>
 						<td>
-				            <button type="button" class="btn btn-outline-coral btn-sm" data-id="${congViec.idCongViec}">Chi tiết</button>
-				        </td>
+							<button type="button" class="btn btn-outline-coral btn-sm btn-show-detail" data-id="${congViec.idCongViec}">Chi tiết</button>
+						</td>
 						<td>
 							<form action="QuanLyTinDangServlet?id=${congViec.idCongViec}" method="POST" class = "inline-form delete-form" >
 								<input type="hidden" name="csrfToken" value="${csrfToken}">

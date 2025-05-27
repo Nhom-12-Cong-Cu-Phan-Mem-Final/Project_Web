@@ -45,6 +45,7 @@ public class ContentSecurityPolicyFilter implements Filter {
         httpResponse.setHeader("X-XSS-Protection", "1; mode=block");
         httpResponse.setHeader("Referrer-Policy", "no-referrer");
         httpResponse.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+        httpResponse.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
 
         chain.doFilter(request, response);
     }

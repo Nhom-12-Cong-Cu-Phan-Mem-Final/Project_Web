@@ -27,6 +27,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
 	crossorigin="anonymous"></script>
+<meta name="csrf-token" content="${csrfToken}" />
+</head>
 <body class="bg-light-grey">
 	<!-- Navigation -->
 	<c:choose>
@@ -117,8 +119,10 @@
 										<div class="col-md-9 mb-3">
 											<button type="button"
 												class="btn bg-dark-blue text-light form-control"
+												id="btnUngTuyen"
 												data-bs-toggle="modal" data-bs-target="#cvListModal"
 												>Ứng tuyển</button>
+											<input type="hidden" id="idCongViec" value="${congViec.idCongViec}" />
 										</div>
 
 
@@ -201,20 +205,12 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" nonce="<%= nonce %>">
-		// Chuyển giá trị từ Java (JSP) sang JavaScript
-		let idCongViec = $
-		{
-			congViec.idCongViec
-		};
-		console.log(idCongViec); // In ra để kiểm tra
-	</script>
 
 	<jsp:include page="modals/UngTuyenModal.jsp" />
 
 	<jsp:include page="modals/ViewCVModal.jsp" />
 
-	<script src="js/UngTuyen.js"></script>
+	<script src="js/UngTuyen.js" nonce="<%= nonce %>"></script>
 	<script src="js/CV.js"></script>
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
