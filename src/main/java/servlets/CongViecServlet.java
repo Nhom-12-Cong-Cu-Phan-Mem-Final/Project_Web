@@ -27,7 +27,7 @@ import filters.LengthFilter;
  */
 public class CongViecServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = LoggerFactory.getLogger(LoginServlet.class);
+	private static final Logger logger = LoggerFactory.getLogger(CongViecServlet.class);
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
