@@ -24,6 +24,7 @@ import beans.CongViec;
 import beans.TaiKhoan;
 import dao.CongViecDAO;
 import filters.HTMLSanitizer;
+import filters.LengthFilter;
 
 /**
  * Servlet implementation class DangCongViecServlet
@@ -90,6 +91,24 @@ public class DangCongViecServlet extends HttpServlet {
 		quyenLoi = HTMLSanitizer.sanitizeInput(quyenLoi);
 		
 		try {
+			// Kiểm tra độ dài các trường
+			if (
+			    LengthFilter.isTooLong(ten, 100) ||
+			    LengthFilter.isTooLong(diaDiem, 200) ||
+			    LengthFilter.isTooLong(luongStr, 20) ||
+			    LengthFilter.isTooLong(namKinhNghiemStr, 2) ||
+			    LengthFilter.isTooLong(linhVuc, 100) ||
+			    LengthFilter.isTooLong(thoiGianHetHanStr, 20) ||
+			    LengthFilter.isTooLong(moTa, 1000) ||
+			    LengthFilter.isTooLong(yeuCau, 1000) ||
+			    LengthFilter.isTooLong(quyenLoi, 1000)
+			) {
+				LOGGER.info("Input type length is invalid");
+			    session.setAttribute("flashMessage", "Input type length is invalid");
+			    response.sendRedirect(request.getContextPath() + "/DangCongViecServlet");
+			    return;
+			}
+
 			// Kiểm tra giá trị đầu vào
 			if (ten != null && !ten.isEmpty() && diaDiem != null && !diaDiem.isEmpty() && luongStr != null
 					&& !luongStr.isEmpty() && namKinhNghiemStr != null && !namKinhNghiemStr.isEmpty()

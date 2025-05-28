@@ -53,12 +53,12 @@
 						<div class="mb-3">
 							<label for="ten" class="form-label">Tên Công Việc</label> <input
 								type="text" class="form-control" id="ten" name="ten"
-								placeholder="Nhập tên công việc">
+								placeholder="Nhập tên công việc" maxlength="100">
 						</div>
 						<div class="mb-3">
 							<label for="diaDiem" class="form-label">Địa Điểm</label> <input
 								type="text" class="form-control" id="diaDiem" name="diaDiem"
-								placeholder="Nhập địa điểm công việc">
+								placeholder="Nhập địa điểm công việc" maxlength="100">
 						</div>
 						<div class="mb-3">
 							<label for="luong" class="form-label">Lương</label> <input
@@ -74,7 +74,7 @@
 						<div class="mb-3">
 							<label for="linhVuc" class="form-label">Lĩnh Vực</label> <input
 								type="text" class="form-control" id="linhVuc" name="linhVuc"
-								placeholder="Nhập lĩnh vực công việc">
+								placeholder="Nhập lĩnh vực công việc" maxlength="100">
 						</div>
 						<div class="mb-3">
 							<label for="thoiGianHetHan" class="form-label">Thời Gian
@@ -86,17 +86,17 @@
 						<div class="mb-3">
 							<label for="moTa" class="form-label">Mô Tả Công Việc</label>
 							<textarea class="form-control" id="moTa" name="moTa" rows="5"
-								placeholder="Nhập mô tả công việc"></textarea>
+								placeholder="Nhập mô tả công việc" maxlength="1000"></textarea>
 						</div>
 						<div class="mb-3">
 							<label for="yeuCau" class="form-label">Yêu Cầu</label>
 							<textarea class="form-control" id="yeuCau" name="yeuCau" rows="5"
-								placeholder="Nhập yêu cầu công việc"></textarea>
+								placeholder="Nhập yêu cầu công việc" maxlength="1000"></textarea>
 						</div>
 						<div class="mb-3">
 							<label for="quyenLoi" class="form-label">Quyền Lợi</label>
 							<textarea class="form-control" id="quyenLoi" name="quyenLoi"
-								rows="4" placeholder="Nhập quyền lợi của công việc"></textarea>
+								rows="4" placeholder="Nhập quyền lợi của công việc" maxlength="100"></textarea>
 						</div>
 					</div>
 				</div>

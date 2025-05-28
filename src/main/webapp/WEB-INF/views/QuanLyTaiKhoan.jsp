@@ -98,19 +98,19 @@
 									<div class="mb-3">
 										<label for="oldPassword" class="form-label">Mật khẩu
 											cũ</label> <input type="password" id="oldPassword" name="oldPassword"
-											class="form-control" placeholder="Nhập mật khẩu cũ" required />
+											class="form-control" placeholder="Nhập mật khẩu cũ" required maxlength="32"/>
 									</div>
 									<div class="mb-3">
 										<label for="newPassword" class="form-label">Mật khẩu
 											mới</label> <input type="password" id="newPassword"
 											name="newPassword" class="form-control"
-											placeholder="Nhập mật khẩu mới" required />
+											placeholder="Nhập mật khẩu mới" required maxlength="32"/>
 									</div>
 									<div class="mb-3">
 										<label for="confirmPassword" class="form-label">Xác
 											nhận mật khẩu mới</label> <input type="password" id="confirmPassword"
 											name="confirmPassword" class="form-control"
-											placeholder="Nhập lại mật khẩu mới" required />
+											placeholder="Nhập lại mật khẩu mới" required maxlength="32"/>
 									</div>
 									<button type="submit" class="btn btn-primary">Lưu thay
 										đổi</button>
@@ -161,7 +161,7 @@
 								<div>
 									<label for="fullname" class="form-label">Họ tên</label> <input
 										type="text" id="fullname" name="fullname" class="form-control"
-										required value="${uv.fullName}" />
+										required value="${uv.fullName}" maxlength="50"/>
 								</div>
 
 								<!-- Giới tính -->
@@ -192,13 +192,13 @@
 								<label for="phone" class="form-label">Số điện thoại:</label> <input
 									type="tel" id="phone" name="phone" pattern="[0-9]{10}"
 									class="form-control" placeholder="Nhập số điện thoại" required
-									value="${uv.phone}" />
+									value="${uv.phone}"  maxlength="10"/>
 							</div>
 							<!-- Email -->
 							<div class="col-md-6">
 								<label for="email" class="form-label">Email:</label> <input
 									type="email" id="email" name="email" class="form-control"
-									placeholder="Nhập email" readonly value="${uv.email}" />
+									placeholder="Nhập email" readonly value="${uv.email}"/>
 							</div>
 						</div>
 
@@ -207,13 +207,13 @@
 							<div class="col-md-6">
 								<label for="location" class="form-label">Tỉnh thành:</label> <input
 									type="text" id="location" name="location" class="form-control"
-									placeholder="Nhập tỉnh thành" required value="${uv.location}" />
+									placeholder="Nhập tỉnh thành" required value="${uv.location}" maxlength="50"/>
 							</div>
 							<!-- Địa chỉ -->
 							<div class="col-md-6">
 								<label for="address" class="form-label">Địa chỉ:</label> <input
 									type="text" id="address" name="address" class="form-control"
-									placeholder="Nhập địa chỉ" required value="${uv.address}" />
+									placeholder="Nhập địa chỉ" required value="${uv.address}" maxlength="100"/>
 							</div>
 						</div>
 
@@ -221,7 +221,7 @@
 						<div class="mb-3">
 							<label for="introduction" class="form-label">Giới thiệu:</label>
 							<textarea id="introduction" name="introduction"
-								class="form-control" placeholder="Giới thiệu bản thân" rows="4"
+								class="form-control" placeholder="Giới thiệu bản thân" rows="4"  maxlength="500"
 								required>${uv.introduction}</textarea>
 						</div>
 						<div class="form-group text-end">

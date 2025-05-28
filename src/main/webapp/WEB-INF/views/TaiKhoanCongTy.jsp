@@ -88,19 +88,19 @@
 									<div class="mb-3">
 										<label for="oldPassword" class="form-label">Mật khẩu
 											cũ</label> <input type="password" id="oldPassword" name="oldPassword"
-											class="form-control" placeholder="Nhập mật khẩu cũ" required />
+											class="form-control" placeholder="Nhập mật khẩu cũ" required maxlength="32"/>
 									</div>
 									<div class="mb-3">
 										<label for="newPassword" class="form-label">Mật khẩu
 											mới</label> <input type="password" id="newPassword"
 											name="newPassword" class="form-control"
-											placeholder="Nhập mật khẩu mới" required />
+											placeholder="Nhập mật khẩu mới" required maxlength="32"/>
 									</div>
 									<div class="mb-3">
 										<label for="confirmPassword" class="form-label">Xác
 											nhận mật khẩu mới</label> <input type="password" id="confirmPassword"
 											name="confirmPassword" class="form-control"
-											placeholder="Nhập lại mật khẩu mới" required />
+											placeholder="Nhập lại mật khẩu mới" required maxlength="32"/>
 									</div>
 									<button type="submit" class="btn btn-primary">Lưu thay
 										đổi</button>
@@ -148,7 +148,7 @@
 
 										<div>
 											<label for="tenCongTy">Tên Công Ty</label> <input type="text"
-												class="form-control" id="tenCongTy" name="tenCongTy"
+												class="form-control" id="tenCongTy" name="tenCongTy" maxlength="50"
 												value="${congTy.tenCongTy}">
 										</div>
 									</div>
@@ -161,13 +161,13 @@
 									<label for="phone" class="form-label">Số điện thoại:</label> <input
 										type="tel" id="phone" name="phone" class="form-control"
 										pattern="[0-9]{10}" placeholder="Nhập số điện thoại"
-										value="${congTy.sdt}" required />
+										value="${congTy.sdt}" required maxlength="10"/>
 								</div>
 								<!-- Email -->
 								<div class="col-md-6">
 									<label for="email" class="form-label">Email:</label> <input
 										type="email" id="email" name="email" class="form-control"
-										placeholder="Nhập email" value="${congTy.email}" readonly />
+										placeholder="Nhập email" value="${congTy.email}" readonly/>
 								</div>
 							</div>
 
@@ -177,31 +177,31 @@
 									<label for="location" class="form-label">Tỉnh thành:</label> <input
 										type="text" id="location" name="location" class="form-control"
 										placeholder="Nhập tỉnh thành" value="${congTy.tinhThanh}"
-										required />
+										required maxlength="50"/>
 								</div>
 								<!-- Địa chỉ -->
 								<div class="col-md-6">
 									<label for="address" class="form-label">Địa chỉ:</label> <input
 										type="text" id="address" name="address" class="form-control"
-										placeholder="Nhập địa chỉ" value="${congTy.diaChi}" required />
+										placeholder="Nhập địa chỉ" value="${congTy.diaChi}" required maxlength="100"/>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="maSoThue">Mã Số Thuế</label> <input type="text"
 											class="form-control" id="maSoThue" name="maSoThue"
-											value="${congTy.maSoThue}" required>
+											value="${congTy.maSoThue}" required maxlength="50">
 									</div>
 									<div class="form-group">
 										<label for="linhVuc">Lĩnh Vực</label> <input type="text"
 											class="form-control" id="linhVuc" name="linhVuc"
-											value="${congTy.linhVuc}" required>
+											value="${congTy.linhVuc}" required maxlength="50">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="quyMoNhanSu">Quy Mô Nhân Sự</label> <input
 											type="text" class="form-control" id="quyMoNhanSu"
-											name="quyMoNhanSu" value="${congTy.quyMoNhanSu}" required>
+											name="quyMoNhanSu" value="${congTy.quyMoNhanSu}" required maxlength="100">
 									</div>
 									<div class="form-group">
 										<label for="url">URL Trang Web</label> <input type="url"
@@ -214,7 +214,7 @@
 							<div class="mb-3">
 								<label for="introduction" class="form-label">Giới thiệu:</label>
 								<textarea id="introduction" name="introduction"
-									class="form-control" placeholder="Giới thiệu bản thân" rows="4"
+									class="form-control" placeholder="Giới thiệu bản thân" rows="4" maxlength="500"
 									required>${congTy.gioiThieu}</textarea>
 								<hr>
 								<h5>Background</h5>

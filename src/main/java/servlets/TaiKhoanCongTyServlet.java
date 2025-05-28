@@ -34,6 +34,7 @@ import dao.CongTyDAO;
 import dao.CongViecDAO;
 import dao.TaiKhoanDAO;
 import filters.HTMLSanitizer;
+import filters.LengthFilter;
 
 /**
  * Servlet implementation class TaiKhoanCongTy
@@ -116,6 +117,23 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
             String gioiThieu = json.getString("gioiThieu");
             gioiThieu = HTMLSanitizer.sanitizeInput(gioiThieu);
             
+            if (
+            	    LengthFilter.isTooLong(tenCongTy, 100) ||
+            	    LengthFilter.isTooLong(sdt, 15) ||
+            	    LengthFilter.isTooLong(tinhThanh, 100) ||
+            	    LengthFilter.isTooLong(diaChi, 200) ||
+            	    LengthFilter.isTooLong(maSoThue, 20) ||
+            	    LengthFilter.isTooLong(linhVuc, 100) ||
+            	    LengthFilter.isTooLong(quyMoNhanSu, 50) ||
+            	    LengthFilter.isTooLong(url, 200) ||
+            	    LengthFilter.isTooLong(gioiThieu, 2000)
+            	) {
+            		logger.warn("Invalid input length!");
+            	    response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+            	    response.getWriter().write("Một số trường vượt quá độ dài cho phép!");
+            	    return;
+            	}
+
             
             boolean isUpdateAvatar = true;
             boolean isUpdateActivities = true;

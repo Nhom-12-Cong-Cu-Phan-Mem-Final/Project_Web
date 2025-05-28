@@ -90,8 +90,15 @@ public class LoginServlet extends HttpServlet {
 		boolean isAuthenticated = TaiKhoanDAO.AuthenticationAccount(tk);
 		if (isAuthenticated) {
 			int id = TaiKhoanDAO.getID("username", tk.getUsername());
-			 // Reset lại số lần sai
-	        session.setAttribute("failedAttempts", 0);
+			HttpSession oldSession = request.getSession(false);
+			if (oldSession != null) {
+				oldSession.invalidate();
+			}
+			session = request.getSession(true);
+			// Ràng buộc session với IP và trình duyệt
+			session.setAttribute("ip_address", request.getRemoteAddr());
+			session.setAttribute("user_agent", request.getHeader("User-Agent"));
+			
 			TaiKhoan taiKhoan = TaiKhoanDAO.getTaiKhoanById(id);
 			session.setAttribute("account", taiKhoan);
 			

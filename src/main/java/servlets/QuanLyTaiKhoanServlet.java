@@ -36,6 +36,7 @@ import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
 import dao.UngVienDAO;
 import filters.HTMLSanitizer;
+import filters.LengthFilter;
 
 public class QuanLyTaiKhoanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -99,6 +100,54 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	        String introduction = json.getString("introduction");
 	        introduction = HTMLSanitizer.sanitizeInput(introduction);
 	        
+	        if (LengthFilter.isTooLong(fullname, 100)) {
+	            logger.warn("Full name is too long!");
+	            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+	            response.getWriter().write("Full name exceeds maximum length!");
+	            return;
+	        }
+	        
+	        if (LengthFilter.isTooLong(gender, 20)) {
+	            logger.warn("Gender is too long!");
+	            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+	            response.getWriter().write("Gender exceeds maximum length!");
+	            return;
+	        }
+	        
+	        if (LengthFilter.isTooLong(dobString, 10)) { // Assuming dob format is yyyy-mm-dd
+	            logger.warn("Date of birth is too long!");
+	            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+	            response.getWriter().write("Date of birth exceeds maximum length!");
+	            return;
+	        }
+	        
+	        if (LengthFilter.isTooLong(phone, 10)) {
+	            logger.warn("Phone number is too long!");
+	            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+	            response.getWriter().write("Phone number exceeds maximum length!");
+	            return;
+	        }
+	        
+	        if (LengthFilter.isTooLong(location, 100)) {
+	            logger.warn("Location is too long!");
+	            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+	            response.getWriter().write("Location exceeds maximum length!");
+	            return;
+	        }
+	        
+	        if (LengthFilter.isTooLong(address, 200)) {
+	            logger.warn("Address is too long!");
+	            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+	            response.getWriter().write("Address exceeds maximum length!");
+	            return;
+	        }
+	        
+	        if (LengthFilter.isTooLong(introduction, 2000)) {
+	            logger.warn("Introduction is too long!");
+	            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+	            response.getWriter().write("Introduction exceeds maximum length!");
+	            return;
+	        }
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	        Date dob = null;
 

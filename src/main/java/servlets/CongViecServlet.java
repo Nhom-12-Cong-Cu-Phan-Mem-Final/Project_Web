@@ -13,17 +13,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 
 import beans.CongViec;
 import dao.CongViecDAO;
+import filters.LengthFilter;
 
 /**
  * Servlet implementation class CongViecServlet
  */
 public class CongViecServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static final Logger logger = LoggerFactory.getLogger(LoginServlet.class);
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -92,6 +96,16 @@ public class CongViecServlet extends HttpServlet {
 	    String kinhNghiem = request.getParameter("kinhNghiem");
 	    String luongKhoiDiemHienTai = request.getParameter("luongKhoiDiemHienTai");
 	    String LuongKetThucHienTai = request.getParameter("LuongKetThucHienTai");
+	    
+	    
+	    // Giới hạn độ dài từng trường
+	    if (LengthFilter.isTooLong(kinhNghiem, 50) ||
+	        LengthFilter.isTooLong(luongKhoiDiemHienTai, 20) ||
+	        LengthFilter.isTooLong(LuongKetThucHienTai, 20)) {
+	        logger.warn("Buffer over flow!");
+	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "One or more parameters are too long.");
+	        return;
+	    }
 	    congViecs = CongViec.LocLinhVuc(congViecs, linhVuc);
 	    congViecs = CongViec.LocTinhThanh(congViecs, tinhThanh);
 	    congViecs = CongViec.LocTen(congViecs, ten);
