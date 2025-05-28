@@ -30,8 +30,14 @@ public class ContentSecurityPolicyFilter implements Filter {
         // Thiết lập CSP Header
         httpResponse.setHeader("Content-Security-Policy",
                 "default-src 'self'; " +
-                "script-src 'self' 'nonce-" + nonce + "' https://accounts.google.com https://code.jquery.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://stackpath.bootstrapcdn.com; " +
-                "style-src 'self' 'nonce-" + nonce + "' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://stackpath.bootstrapcdn.com; " +
+                "script-src 'self' 'nonce-" + nonce + "' "
+                		+ "https://accounts.google.com "
+                		+ "https://code.jquery.com "
+                		+ "https://cdn.jsdelivr.net"
+                		+ " https://cdnjs.cloudflare.com; " +
+                "style-src 'self' 'nonce-" + nonce + "' "
+                		+ "https://cdn.jsdelivr.net "
+                		+ "https://cdnjs.cloudflare.com; " +
                 "font-src 'self' https://cdn.jsdelivr.net data:; " +
                 "img-src 'self' data: https://cdn-icons-png.flaticon.com; " +
                 "media-src 'self' https://cdn-icons-mp4.flaticon.com; " +
