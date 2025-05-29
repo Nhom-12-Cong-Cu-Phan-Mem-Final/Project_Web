@@ -29,7 +29,7 @@ public class ChangePasswordServlet extends HttpServlet {
     	
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
-        String username = request.getParameter("username"); // Giả sử bạn truyền username từ frontend.
+        String username = request.getParameter("username"); 
         
         oldPassword = HTMLSanitizer.sanitizeInput(oldPassword);
         newPassword = HTMLSanitizer.sanitizeInput(newPassword);
