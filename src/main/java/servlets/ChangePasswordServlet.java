@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
@@ -14,6 +15,7 @@ import java.io.PrintWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import beans.TaiKhoan;
 import dao.TaiKhoanDAO;
 import filters.HTMLSanitizer;
 
@@ -27,9 +29,12 @@ public class ChangePasswordServlet extends HttpServlet {
     	}
     	// Lấy các tham số từ form
     	
+    	HttpSession session = request.getSession(false);
+	    TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+    	
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
-        String username = request.getParameter("username"); 
+        String username = taiKhoan.getUsername(); 
         
         oldPassword = HTMLSanitizer.sanitizeInput(oldPassword);
         newPassword = HTMLSanitizer.sanitizeInput(newPassword);
