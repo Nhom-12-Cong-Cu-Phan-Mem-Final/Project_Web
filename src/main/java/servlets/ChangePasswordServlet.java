@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.IOException;
@@ -19,7 +20,12 @@ import filters.HTMLSanitizer;
 public class ChangePasswordServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ChangePasswordServlet.class);
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Lấy các tham số từ form
+    	
+    	if (!AuthUtil.isAuthenticated(request, response))
+    	{
+    		return;
+    	}
+    	// Lấy các tham số từ form
     	
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
